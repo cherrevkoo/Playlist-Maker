@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.appbar.MaterialToolbar
 
 class SettingsActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -19,8 +20,8 @@ class SettingsActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        findViewById<ImageButton>(R.id.back_button).setOnClickListener {
+        val toolbar = findViewById<MaterialToolbar>(R.id.settings_back)
+        toolbar.setNavigationOnClickListener {
             finish()
         }
     }

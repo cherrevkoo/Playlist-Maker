@@ -18,53 +18,26 @@
         android:paddingEnd="@dimen/screen_padding"
         android:paddingBottom="@dimen/screen_padding">
 
-        <ImageButton
-            android:id="@+id/back_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/arrow_back" />
-
-        <TextView
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/settings_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/settings"
-            android:textColor="@color/YP_Black"
-            android:textSize="@dimen/button_text_size" />
+            app:navigationIcon="@drawable/arrow_back"
+            app:title="@string/settings"
+            app:titleTextAppearance="@style/Toolbar.TitleText">
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </LinearLayout>
 
-    <LinearLayout
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/setting_screen_layouts"
-            android:layout_marginStart="@dimen/button_margin_horizontal"
-            android:layout_marginEnd="@dimen/button_margin_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="@string/dark_theme"
-            android:textColor="@color/YP_Black"
-            android:textSize="@dimen/settings_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            >
-        </TextView>
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            tools:ignore="UseSwitchCompatOrMaterialXml"
-            android:layout_marginRight="@dimen/button_margin_horizontal">
-        </Switch>
-
-    </LinearLayout>
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="20dp"
+        android:text="@string/dark_theme"
+        android:textSize="16sp"
+        android:textColor="@color/YP_Black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -72,26 +45,15 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/setting_screen_layouts"
-            android:layout_marginStart="@dimen/button_margin_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_share"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="20dp"
             android:text="@string/share"
-            android:textColor="@color/YP_Black"
-            android:textSize="@dimen/settings_text_size">
-
-        </TextView>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/button_margin_horizontal"
-            android:src="@drawable/ic_share"
-            >
-
-        </ImageView>
+            android:textSize="16sp"
+            android:textColor="@color/YP_Black"/>
 
     </LinearLayout>
 
@@ -101,26 +63,17 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/setting_screen_layouts"
-            android:layout_marginStart="@dimen/button_margin_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_support"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="20dp"
             android:text="@string/support"
             android:textColor="@color/YP_Black"
             android:textSize="@dimen/settings_text_size">
 
-        </TextView>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/button_margin_horizontal"
-            android:src="@drawable/ic_support">
-
-        </ImageView>
-
+        </com.google.android.material.textview.MaterialTextView>
     </LinearLayout>
 
     <LinearLayout
@@ -129,26 +82,17 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/setting_screen_layouts"
-            android:layout_marginStart="@dimen/button_margin_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/arrow_forward"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="20dp"
             android:text="@string/agreement"
             android:textColor="@color/YP_Black"
             android:textSize="@dimen/settings_text_size">
 
-        </TextView>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/button_margin_horizontal"
-            android:src="@drawable/arrow_forward">
-
-        </ImageView>
-
+        </com.google.android.material.textview.MaterialTextView>
     </LinearLayout>
 
 

@@ -7,6 +7,12 @@
     <string name="share">Поделиться приложением</string>
     <string name="support">Написать в поддержку</string>
     <string name="agreement">Пользовательское соглашение</string>
+    <string name="message">Первоклассным Android-разработчиком можно стать всего за один вечер!
+        Для этого нужно лишь…</string>
+    <string name="details">Подробнее</string>
+    <string name="not_interested">Не интересно</string>
+
+
 
 
 </resources>
