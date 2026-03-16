@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/screen_padding"
         app:navigationIcon="@drawable/arrow_back"
-
         app:title="@string/settings"
         app:titleTextAppearance="@style/Toolbar.TitleText"
         app:titleTextColor="?attr/colorOnBackground"/>
@@ -25,30 +24,24 @@
         android:text="@string/dark_theme"/>
 
     <com.google.android.material.textview.MaterialTextView
-        style="@style/SettingsTextStyle"
+        style="@style/SettingsTextWithIconStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_share"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="20dp"
         android:text="@string/share"/>
 
     <com.google.android.material.textview.MaterialTextView
-        style="@style/SettingsTextStyle"
+        style="@style/SettingsTextWithIconStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_support"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="20dp"
         android:text="@string/support"/>
 
     <com.google.android.material.textview.MaterialTextView
-        style="@style/SettingsTextStyle"
+        style="@style/SettingsTextWithIconStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/arrow_forward"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="20dp"
         android:text="@string/agreement"/>
 
 </LinearLayout>

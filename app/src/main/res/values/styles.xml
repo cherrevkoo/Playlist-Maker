@@ -41,12 +41,22 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">@dimen/button_text_size</item>
     </style>
+
     <style name="SettingsSwitchStyle" parent="Widget.MaterialComponents.CompoundButton.Switch">
         <item name="colorControlActivated">@color/switcher_on</item>
         <item name="android:thumbTint">@color/switcher_on</item>
         <item name="android:textColor">@color/YP_Black</item>
         <item name="android:textSize">16sp</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+
+    <style name="SettingsTextWithIconStyle" parent="SettingsTextStyle">
+        <item name="android:drawableTint">@color/toolbar_navigation_icon</item>
+        <item name="android:drawableTintMode">src_in</item>
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
         <item name="android:paddingTop">20dp</item>

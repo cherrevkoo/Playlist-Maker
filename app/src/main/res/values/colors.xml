@@ -5,6 +5,7 @@
     <color name="YP_Black">#000000</color>
     <color name="background">#3772E7</color>
     <color name="switcher_on">#00D6C3</color>
-    <color name="toolbar_navigation_icon">#000000</color>
-
+    <color name="toolbar_navigation_icon">#AEAFB4</color>
+    <color name="icon_tint">@color/YP_Black</color>
+    <color name="icon_original">#AEAFB4</color>
 </resources>
