@@ -3,8 +3,9 @@
     <color name="button_text">#000000</color>
     <color name="YP_White">#FFFFFF</color>
     <color name="YP_Black">#000000</color>
-    <color name="background">#3772E7</color>
-    <color name="switcher_on">#00D6C3</color>
-    <color name="toolbar_navigation_icon">#000000</color>
+    <color name="background">#000000</color>
+    <color name="switcher_on">#3772E7</color>
+    <color name="toolbar_navigation_icon">#FFFFFF</color>
+
 
 </resources>

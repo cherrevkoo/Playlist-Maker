@@ -1,27 +1,56 @@
 <resources>
     <style name="MessageTextStyle">
         <item name="android:textAlignment">center</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="android:textSize">26sp</item>
-        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textColor">@color/YP_White</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:textFontWeight">500</item>
     </style>
-    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingLeft">24dp</item>
-        <item name="android:paddingRight">24dp</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:backgroundTint">@color/YP_Black</item>
-        <item name="android:textColor">@color/YP_White</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="iconGravity">textStart</item>
-        <item name="iconPadding">8dp</item>
-        <item name="cornerRadius">8dp</item>
-        <item name="iconTint">@color/YP_White</item>
+
+    <style name="MainButtonStyle" parent="Widget.Material3.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">@dimen/button_margin_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/button_margin_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/button_margin_horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/button_margin_vertical</item>
+        <item name="android:paddingStart">@dimen/button_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/button_padding_vertical</item>
+        <item name="android:paddingEnd">@dimen/button_padding_horizontal</item>
+        <item name="android:paddingBottom">@dimen/button_padding_vertical</item>
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">@dimen/icon_padding</item>
+        <item name="android:backgroundTint">@color/button_background</item>
+        <item name="android:textColor">@color/button_text</item>
+        <item name="iconTint">@color/button_text</item>
+    </style>
+
+    <style name="SettingsTextStyle" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textSize">@dimen/settings_text_size</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textColor">@color/YP_White</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/YP_White</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+    </style>
+
+    <style name="SettingsSwitchStyle" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="colorControlActivated">@color/switcher_on</item>
+        <item name="android:thumbTint">@color/switcher_on</item>
+        <item name="android:textColor">@color/YP_White</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
     </style>
 </resources>
