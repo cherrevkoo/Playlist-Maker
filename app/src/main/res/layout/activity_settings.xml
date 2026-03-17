@@ -13,15 +13,21 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/screen_padding"
         app:navigationIcon="@drawable/arrow_back"
+        app:navigationIconTint="@color/toolbar_navigation_icon"
         app:title="@string/settings"
         app:titleTextAppearance="@style/Toolbar.TitleText"
         app:titleTextColor="?attr/colorOnBackground"/>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/dark_theme_switch"
         style="@style/SettingsSwitchStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dark_theme"/>
+        android:text="@string/dark_theme"
+        android:checked="false"
+        android:thumbTint="@color/switch_thumb"
+        android:trackTint="@color/switch_track"
+        android:textAppearance="@style/SettingsTextStyle"/>
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/SettingsTextWithIconStyle"
