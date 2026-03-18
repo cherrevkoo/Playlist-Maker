@@ -35,9 +35,9 @@
         <item name="android:textColor">@color/YP_Black</item>
     </style>
 
-    <style name="Toolbar.TitleText" parent="TextAppearance.Material3.TitleLarge">
+    <style name="Toolbar.TitleText" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/YP_Black</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
-        <item name="android:textColor">@color/YP_White</item>
         <item name="android:textSize">@dimen/button_text_size</item>
         <item name="android:textAllCaps">false</item>
     </style>

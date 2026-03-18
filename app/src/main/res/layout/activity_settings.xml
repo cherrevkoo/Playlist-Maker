@@ -16,7 +16,7 @@
         app:navigationIconTint="@color/toolbar_navigation_icon"
         app:title="@string/settings"
         app:titleTextAppearance="@style/Toolbar.TitleText"
-        app:titleTextColor="?attr/colorOnBackground"/>
+        />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/dark_theme_switch"
