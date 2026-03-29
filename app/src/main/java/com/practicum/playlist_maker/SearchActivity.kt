@@ -14,6 +14,19 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.appbar.MaterialToolbar
 
 class SearchActivity : AppCompatActivity() {
+    private var searchQuery: String = ""
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("SEARCH_QUERY", searchQuery)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        searchQuery = savedInstanceState.getString("SEARCH_QUERY", "")
+        findViewById<EditText>(R.id.searchEditText).setText(searchQuery)
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +90,8 @@ class SearchActivity : AppCompatActivity() {
                         null, clearIcon,
                         null )
                 }
+
+                searchQuery = s.toString()
             }
         }
 
