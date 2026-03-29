@@ -15,5 +15,10 @@
     <color name="search_text_color">#FFFFFF</color>
     <color name="search_line_text">@color/YP_Black</color>
     <color name="search_line_icon">@color/YP_Black</color>
+    <color name="switch_thumb_on">#3772E7</color>
+    <color name="switch_track_on">#9FBBF3</color>
+    <color name="switch_thumb_off">#B0B0B0</color>
+    <color name="switch_track_off">#D0D0D0</color>
+
 
 </resources>

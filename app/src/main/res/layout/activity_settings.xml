@@ -11,7 +11,6 @@
         android:id="@+id/settings_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/screen_padding"
         app:navigationIcon="@drawable/arrow_back"
         app:navigationIconTint="@color/toolbar_navigation_icon"
         app:title="@string/settings"
@@ -25,9 +24,9 @@
         android:layout_height="wrap_content"
         android:text="@string/dark_theme"
         android:checked="false"
-        android:thumbTint="@color/switch_thumb"
-        android:trackTint="@color/switch_track"
-        android:textAppearance="@style/SettingsTextStyle"/>
+        android:textAppearance="@style/SettingsTextStyle"
+        app:thumbTint="@color/switch_thumb_color"
+        app:trackTint="@color/switch_track_color"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/share_app"
