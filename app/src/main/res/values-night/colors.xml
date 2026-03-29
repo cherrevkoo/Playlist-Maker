@@ -1,7 +1,7 @@
 <resources>
     <color name="YP_White">#FFFFFF</color>
-    <color name="YP_Black">#000000</color>
-    <color name="background">#000000</color>
+    <color name="YP_Black">#1A1B22</color>
+    <color name="background">#1A1B22</color>
     <color name="switcher_on">#3772E7</color>
     <color name="button_background">#000000</color>
     <color name="button_text">#FFFFFF</color>
@@ -10,7 +10,7 @@
     <color name="switch_track">#E0E0E0</color>
     <color name="switch_text_color">#FFFFFF</color>
     <color name="icon_button_color">#000000</color>
-    <color name="search_background">#000000</color>
+    <color name="search_background">#1A1B22</color>
     <color name="search_line">#FFFFFF</color>
     <color name="search_text_color">#FFFFFF</color>
     <color name="search_line_text">@color/YP_Black</color>

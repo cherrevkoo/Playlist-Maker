@@ -1,6 +1,6 @@
 <resources>
     <color name="YP_White">#FFFFFF</color>
-    <color name="YP_Black">#000000</color>
+    <color name="YP_Black">#1A1B22</color>
     <color name="background">#3772E7</color>
     <color name="switch_thumb_on">#00D6C3</color>
     <color name="switch_track_on">#76EAE0</color>

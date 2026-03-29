@@ -7,7 +7,10 @@
         <item name="android:textFontWeight">500</item>
     </style>
 
-    <style name="MainButtonStyle" parent="Widget.Material3.Button">
+    <style name="MainButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textAppearance">@style/MainButtonTextAppearance</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
@@ -21,12 +24,22 @@
         <item name="android:paddingBottom">@dimen/button_padding_vertical</item>
         <item name="cornerRadius">@dimen/button_corner_radius</item>
         <item name="android:textSize">@dimen/button_text_size</item>
-        <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">@dimen/icon_padding</item>
         <item name="android:backgroundTint">@color/button_background</item>
         <item name="android:textColor">@color/button_text</item>
         <item name="iconTint">@color/icon_button_color</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="MainButtonTextAppearance" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
     <style name="SettingsTextStyle" parent="TextAppearance.Material3.BodyMedium">

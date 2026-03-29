@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textview.MaterialTextView
 import androidx.core.net.toUri
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -49,6 +51,18 @@ class SettingsActivity : AppCompatActivity() {
                 Intent.ACTION_VIEW, Uri.parse(getString(R.string.user_agreement))
             )
             startActivity(agreementIntent)
+        }
+
+        val darkThemeSwitch = findViewById<SwitchMaterial>(R.id.dark_theme_switch)
+
+        darkThemeSwitch.isChecked =
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+
+        darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            AppCompatDelegate.setDefaultNightMode(
+                if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
+                else AppCompatDelegate.MODE_NIGHT_NO
+            )
         }
 
     }

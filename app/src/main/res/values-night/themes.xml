@@ -5,7 +5,6 @@
         <item name="colorPrimary">@color/YP_White</item>
         <item name="colorOnPrimary">@color/YP_White</item>
         <item name="toolbarStyle">@style/ToolbarStyle</item>
-        <item name="materialButtonStyle">@style/MainButtonStyle</item>
         <item name="iconTint">@color/toolbar_navigation_icon</item>
     </style>
 

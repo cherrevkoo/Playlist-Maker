@@ -27,23 +27,32 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/search_button"
         style="@style/MainButtonStyle"
+        android:textAppearance="@style/MainButtonTextAppearance"
         android:layout_marginTop="@dimen/button_margin_vertical"
         android:text="@string/search"
         app:icon="@drawable/ic_search"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        app:fontFamily="@font/ys_display_medium" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/media_button"
         style="@style/MainButtonStyle"
+        android:textAppearance="@style/MainButtonTextAppearance"
         android:text="@string/media"
         app:icon="@drawable/ic_playlist"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        app:fontFamily="@font/ys_display_medium"
+
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/settings_button"
         style="@style/MainButtonStyle"
+        android:textAppearance="@style/MainButtonTextAppearance"
         android:text="@string/settings"
         app:icon="@drawable/ic_settings"
+        android:textAllCaps="false"
+        app:fontFamily="@font/ys_display_medium"
         />
 
 </LinearLayout>

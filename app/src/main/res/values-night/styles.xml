@@ -7,7 +7,7 @@
         <item name="android:textFontWeight">500</item>
     </style>
 
-    <style name="MainButtonStyle" parent="Widget.Material3.Button">
+    <style name="MainButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
@@ -27,6 +27,7 @@
         <item name="android:backgroundTint">@color/YP_White</item>
         <item name="android:textColor">@color/YP_Black</item>
         <item name="iconTint">@color/icon_button_color</item>
+        <item name="android:letterSpacing">-0.02</item>
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.AppCompat.Title">
