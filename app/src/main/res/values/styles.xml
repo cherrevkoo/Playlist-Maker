@@ -87,7 +87,6 @@
         <item name="android:paddingEnd">16dp</item>
         <item name="android:drawablePadding">12dp</item>
         <item name="android:drawableStart">@drawable/ic_search_search_activity</item>
-        <item name="android:drawableEnd">@drawable/ic_clear</item>
 
     </style>
 
