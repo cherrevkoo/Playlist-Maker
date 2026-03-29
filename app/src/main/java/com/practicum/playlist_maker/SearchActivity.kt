@@ -1,6 +1,10 @@
 package com.practicum.playlist_maker
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -8,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.appbar.MaterialToolbar
 
 class SearchActivity : AppCompatActivity() {
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,5 +27,50 @@ class SearchActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             finish()
         }
+
+        val clearIcon = getDrawable(R.drawable.ic_clear)
+
+        val searchEditText = findViewById<EditText>(R.id.searchEditText)
+
+        searchEditText.setOnTouchListener { v, event ->
+            if (event.action == android.view.MotionEvent.ACTION_UP &&
+                searchEditText.compoundDrawablesRelative[2] != null &&
+                event.x >= searchEditText.width - searchEditText.paddingEnd - searchEditText.compoundDrawablesRelative[2].bounds.width()
+                ) {
+                searchEditText.text.clear()
+                true
+            } else false
+        }
+
+        val clearTextWatcher = object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.isNullOrEmpty()) {
+                    searchEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        searchEditText.compoundDrawablesRelative[0],
+                        null,
+                        null,
+                        null
+                    )
+                } else {
+                    searchEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(searchEditText.compoundDrawablesRelative[0],
+                        null, clearIcon,
+                        null )
+                }
+            }
+        }
+
+        searchEditText.addTextChangedListener(clearTextWatcher)
     }
 }
