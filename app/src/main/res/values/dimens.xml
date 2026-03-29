@@ -11,4 +11,5 @@
     <dimen name="screen_padding">16dp</dimen>
     <dimen name="setting_screen_layouts">61dp</dimen>
     <dimen name="margin_top_main_button">16dp</dimen>
+    <dimen name="search_text_size">16sp</dimen>
 </resources>

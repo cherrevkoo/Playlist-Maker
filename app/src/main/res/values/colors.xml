@@ -12,6 +12,12 @@
     <color name="switch_track">#E0E0E0</color>
     <color name="switch_text_color">#000000</color>
     <color name="icon_button_color">#000000</color>
+    <color name="search_background">#FFFFFF</color>
+    <color name="search_line">#E6E8EB</color>
+    <color name="search_text_color">#000000</color>
+    <color name="search_line_text">#818C99</color>
+    <color name="search_line_icon">#818C99</color>
+
 
 
 </resources>
