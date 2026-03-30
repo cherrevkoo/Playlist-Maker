@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -12,7 +12,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textview.MaterialTextView
-import androidx.core.net.toUri
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
@@ -39,11 +38,22 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialTextView>(R.id.support).setOnClickListener {
-            val supportIntent = Intent(Intent.ACTION_SENDTO,
-                ("mailto:" + getString(R.string.student_email)).toUri())
-            supportIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject))
-            supportIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_body))
-            startActivity(supportIntent)
+            val addresses = arrayOf(getString(R.string.student_email))
+            val subject = getString(R.string.email_subject)
+            val body = getString(R.string.email_body)
+
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                type = "message/rfc822"
+                putExtra(Intent.EXTRA_EMAIL, addresses)
+                putExtra(Intent.EXTRA_SUBJECT, subject)
+                putExtra(Intent.EXTRA_TEXT, body)
+            }
+
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(Intent.createChooser(intent, "Выберите почтовое приложение"))
+            } else {
+                Toast.makeText(this, "Нет почтового приложения на устройстве", Toast.LENGTH_SHORT).show()
+            }
         }
 
         findViewById<MaterialTextView>(R.id.agreement).setOnClickListener {

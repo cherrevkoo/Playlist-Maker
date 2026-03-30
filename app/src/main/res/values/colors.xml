@@ -18,7 +18,9 @@
     <color name="search_line">#E6E8EB</color>
     <color name="search_text_color">#000000</color>
     <color name="search_line_text">#818C99</color>
-    <color name="search_line_icon">#818C99</color>
+    <color name="search_line_icon">#AEAFB4</color>
+    <color name="search_icon_color">#AEAFB4</color>
+
 
 
 

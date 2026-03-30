@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/settings_back"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         app:navigationIcon="@drawable/arrow_back"
         app:navigationIconTint="@color/toolbar_navigation_icon"
         app:title="@string/settings"
@@ -42,7 +42,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_support"
-        android:text="@string/support"/>
+        android:text="@string/support"
+        android:clickable="true"
+        android:focusable="true" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/agreement"

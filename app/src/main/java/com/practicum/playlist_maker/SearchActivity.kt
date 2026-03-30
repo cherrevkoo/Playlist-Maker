@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.appbar.MaterialToolbar
@@ -86,6 +87,13 @@ class SearchActivity : AppCompatActivity() {
                         null
                     )
                 } else {
+                    val color = if (isNightMode()) {
+                        ContextCompat.getColor(this@SearchActivity, R.color.YP_Black)
+                    } else {
+                        ContextCompat.getColor(this@SearchActivity, R.color.search_line_icon) // #AEAFB4
+                    }
+                    clearIcon?.setTint(color)
+
                     searchEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(searchEditText.compoundDrawablesRelative[0],
                         null, clearIcon,
                         null )
@@ -96,5 +104,11 @@ class SearchActivity : AppCompatActivity() {
         }
 
         searchEditText.addTextChangedListener(clearTextWatcher)
+    }
+
+    private fun isNightMode(): Boolean {
+        val uiMode = resources.configuration.uiMode
+        return (uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) ==
+                android.content.res.Configuration.UI_MODE_NIGHT_YES
     }
 }
