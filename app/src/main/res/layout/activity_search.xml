@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/search_back"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         app:navigationIcon="@drawable/arrow_back"
         app:navigationIconTint="@color/toolbar_navigation_icon"
         app:title="@string/search"
