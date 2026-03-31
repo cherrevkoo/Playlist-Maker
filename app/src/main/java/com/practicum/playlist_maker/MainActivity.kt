@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.button.MaterialButton
@@ -29,5 +30,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<MaterialButton>(R.id.settings_button).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
+
+        val searchBtn = findViewById<MaterialButton>(R.id.search_button)
+        searchBtn.typeface = ResourcesCompat.getFont(this, R.font.ys_display_medium)
     }
 }

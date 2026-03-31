@@ -1,155 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/YP_White"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/settings_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/screen_padding"
-        android:paddingTop="@dimen/screen_padding"
-        android:paddingEnd="@dimen/screen_padding"
-        android:paddingBottom="@dimen/screen_padding">
+        app:navigationIcon="@drawable/arrow_back"
+        app:navigationIconTint="@color/toolbar_navigation_icon"
+        app:title="@string/settings"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        />
 
-        <ImageButton
-            android:id="@+id/back_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/arrow_back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/settings"
-            android:textColor="@color/YP_Black"
-            android:textSize="@dimen/button_text_size" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/dark_theme_switch"
+        style="@style/SettingsSwitchStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:text="@string/dark_theme"
+        android:checked="false"
+        android:textAppearance="@style/SettingsTextStyle"
+        app:thumbTint="@color/switch_thumb_color"
+        app:trackTint="@color/switch_track_color"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/setting_screen_layouts"
-            android:layout_marginStart="@dimen/button_margin_horizontal"
-            android:layout_marginEnd="@dimen/button_margin_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="@string/dark_theme"
-            android:textColor="@color/YP_Black"
-            android:textSize="@dimen/settings_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            >
-        </TextView>
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            tools:ignore="UseSwitchCompatOrMaterialXml"
-            android:layout_marginRight="@dimen/button_margin_horizontal">
-        </Switch>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/share_app"
+        style="@style/SettingsTextWithIconStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:drawableEnd="@drawable/ic_share"
+        android:text="@string/share"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/setting_screen_layouts"
-            android:layout_marginStart="@dimen/button_margin_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="@string/share"
-            android:textColor="@color/YP_Black"
-            android:textSize="@dimen/settings_text_size">
-
-        </TextView>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/button_margin_horizontal"
-            android:src="@drawable/ic_share"
-            >
-
-        </ImageView>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/support"
+        style="@style/SettingsTextWithIconStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:drawableEnd="@drawable/ic_support"
+        android:text="@string/support"
+        android:clickable="true"
+        android:focusable="true" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/setting_screen_layouts"
-            android:layout_marginStart="@dimen/button_margin_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="@string/support"
-            android:textColor="@color/YP_Black"
-            android:textSize="@dimen/settings_text_size">
-
-        </TextView>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/button_margin_horizontal"
-            android:src="@drawable/ic_support">
-
-        </ImageView>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/agreement"
+        style="@style/SettingsTextWithIconStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/setting_screen_layouts"
-            android:layout_marginStart="@dimen/button_margin_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="@string/agreement"
-            android:textColor="@color/YP_Black"
-            android:textSize="@dimen/settings_text_size">
-
-        </TextView>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/button_margin_horizontal"
-            android:src="@drawable/arrow_forward">
-
-        </ImageView>
-
-    </LinearLayout>
-
+        android:drawableEnd="@drawable/arrow_forward"
+        android:text="@string/agreement"/>
 
 </LinearLayout>

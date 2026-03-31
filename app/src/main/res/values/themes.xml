@@ -1,9 +1,27 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.PlaylistMaker" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<resources>
+    <style name="Theme.PlaylistMaker" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:colorBackground">@color/YP_White</item>
+        <item name="colorOnBackground">@color/YP_Black</item>
+        <item name="colorPrimary">@color/YP_White</item>
+        <item name="colorOnPrimary">@color/YP_Black</item>
+        <item name="toolbarStyle">@style/ToolbarStyle</item>
+        <item name="materialButtonStyle">@style/MainButtonStyle</item>
+        <item name="textAppearanceButton">@style/MainButtonTextAppearance</item>
+        <item name="iconTint">@color/button_text</item>
+        <item name="android:textAppearanceButton">@style/MainButtonTextAppearance</item>
+
+
     </style>
 
-    <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker" />
+    <style name="ToolbarStyle" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">@style/Toolbar.TitleText</item>
+    </style>
+
+
+    <style name="SearchActivityTheme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowBackground">@color/search_background</item>
+        <item name="editTextStyle">@style/SearchEditTextStyle</item>
+    </style>
+
+
 </resources>

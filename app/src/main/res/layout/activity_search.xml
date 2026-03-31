@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:background="@color/YP_White">
+    android:background="@color/search_background">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/search_back"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Поиск"
-        android:textSize="24sp"
-        android:textColor="@color/YP_Black"/>
+        app:navigationIcon="@drawable/arrow_back"
+        app:navigationIconTint="@color/toolbar_navigation_icon"
+        app:title="@string/search"
+        app:titleTextAppearance="@style/Toolbar.TitleText" />
+
+    <EditText
+        android:id="@+id/searchEditText"
+        style="@style/SearchEditTextStyle"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingStart="@dimen/button_margin_horizontal"
+        android:paddingEnd="@dimen/button_margin_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/button_margin_horizontal"
+        android:layout_marginEnd="@dimen/button_margin_horizontal"
+        android:textColorHint="@color/search_line_text"
+        android:autofillHints="search"
+        tools:ignore="LabelFor" />
 </LinearLayout>
