@@ -12,4 +12,13 @@
     <dimen name="setting_screen_layouts">61dp</dimen>
     <dimen name="margin_top_main_button">16dp</dimen>
     <dimen name="search_text_size">16sp</dimen>
+    <dimen name="track_name_size">16sp</dimen>
+    <dimen name="track_info_size">11sp</dimen>
+    <dimen name="track_item_padding">8dp</dimen>
+    <dimen name="track_icon_size">45dp</dimen>
+    <dimen name="track_icon_margin_start">5dp</dimen>
+    <dimen name="track_text_padding_start">8dp</dimen>
+    <dimen name="track_info_margin_top">3dp</dimen>
+
+<!--    <dimen name="track_layout_"></dimen>-->
 </resources>
