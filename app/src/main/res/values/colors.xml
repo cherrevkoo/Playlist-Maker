@@ -1,6 +1,7 @@
 <resources>
     <color name="YP_White">#FFFFFF</color>
     <color name="YP_Black">#1A1B22</color>
+    <color name="YP_Grey">#AEAFB4</color>
     <color name="background">#3772E7</color>
     <color name="switch_thumb_on">#00D6C3</color>
     <color name="switch_track_on">#76EAE0</color>
@@ -16,10 +17,14 @@
     <color name="icon_button_color">#000000</color>
     <color name="search_background">#FFFFFF</color>
     <color name="search_line">#E6E8EB</color>
-    <color name="search_text_color">#000000</color>
+    <color name="search_text_color">@color/YP_Black</color>
     <color name="search_line_text">#818C99</color>
     <color name="search_line_icon">#AEAFB4</color>
     <color name="search_icon_color">#AEAFB4</color>
+    <color name="track_name_color">#000000</color>
+    <color name="track_info_color">@color/YP_Grey</color>
+
+
 
 
 

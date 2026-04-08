@@ -1,0 +1,37 @@
+package com.practicum.playlist_maker
+
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.view.menu.MenuView
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+
+class TrackViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    private val trackIcon: ImageView = itemView.findViewById(R.id.track_icon)
+    private val trackName: TextView = itemView.findViewById(R.id.trackName)
+
+    private val artistName: TextView = itemView.findViewById(R.id.artistName)
+
+    private val trackTime: TextView = itemView.findViewById(R.id.trackTime)
+
+
+
+    fun bind(item: Track) {
+        trackName.text = item.trackName
+        artistName.text = item.artistName
+        trackTime.text = item.trackTime
+
+        val cornerRadiusInPx = (2 * itemView.context.resources.displayMetrics.density).toInt()
+
+
+        Glide.with(itemView)
+            .load(item.artworkUrl100)
+            .placeholder(R.drawable.placeholder)
+            .centerCrop()
+            .apply(RequestOptions().transform(RoundedCorners(cornerRadiusInPx)))
+            .into(trackIcon)
+    }
+}

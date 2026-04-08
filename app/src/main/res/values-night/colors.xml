@@ -20,6 +20,8 @@
     <color name="switch_thumb_off">#B0B0B0</color>
     <color name="switch_track_off">#D0D0D0</color>
     <color name="search_icon_color">@color/YP_Black</color>
+    <color name="track_name_color">@color/YP_White</color>
+    <color name="track_info_color">@color/YP_White</color>
 
 
 </resources>
