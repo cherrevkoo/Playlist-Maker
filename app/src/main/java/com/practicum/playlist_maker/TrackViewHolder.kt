@@ -12,16 +12,26 @@ import com.bumptech.glide.request.RequestOptions
 class TrackViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private val trackIcon: ImageView = itemView.findViewById(R.id.track_icon)
     private val trackName: TextView = itemView.findViewById(R.id.trackName)
-    private val artistAndTime: TextView = itemView.findViewById(R.id.artist_and_time)
+
+    private val artistName: TextView = itemView.findViewById(R.id.artistName)
+
+    private val trackTime: TextView = itemView.findViewById(R.id.trackTime)
+
+
 
     fun bind(item: Track) {
         trackName.text = item.trackName
-        artistAndTime.text = itemView.context.getString(R.string.artist_and_time, item.artistName, item.trackTime)
+        artistName.text = item.artistName
+        trackTime.text = item.trackTime
+
+        val cornerRadiusInPx = (2 * itemView.context.resources.displayMetrics.density).toInt()
+
+
         Glide.with(itemView)
             .load(item.artworkUrl100)
             .placeholder(R.drawable.placeholder)
             .centerCrop()
-            .apply(RequestOptions().transform(RoundedCorners(2)))
+            .apply(RequestOptions().transform(RoundedCorners(cornerRadiusInPx)))
             .into(trackIcon)
     }
 }

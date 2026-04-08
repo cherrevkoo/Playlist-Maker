@@ -13,5 +13,4 @@
     <string name="email_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="student_email">darya.10122005@gmail.com</string>
     <string name="user_agreement">https://yandex.ru/legal/practicum_offer/ru/</string>
-    <string name="artist_and_time">%1$s  •  %2$s</string>
 </resources>

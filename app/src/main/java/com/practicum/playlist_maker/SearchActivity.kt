@@ -74,7 +74,7 @@ class SearchActivity : AppCompatActivity() {
             inputMethodManager?.hideSoftInputFromWindow(searchEditText.windowToken, 0)
         }
 
-        val tracks = arrayListOf(
+        val tracks = mutableListOf(
             Track(
                 "Smells Like Teen Spirit",
                 "Nirvana",
