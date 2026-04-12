@@ -26,4 +26,10 @@ class TrackAdapter (
         return tracks.size
     }
 
+    fun updateTracks(newTracks: List<Track>) {
+        tracks.clear()
+        tracks.addAll(newTracks)
+        notifyDataSetChanged()
+    }
+
 }

@@ -13,4 +13,8 @@
     <string name="email_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="student_email">darya.10122005@gmail.com</string>
     <string name="user_agreement">https://yandex.ru/legal/practicum_offer/ru/</string>
+    <string name="nothing_is_found">Ничего не нашлось</string>
+    <string name="internet_problem">Проблемы со связью</string>
+    <string name="check_internet_connection">Загрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="update">Обновить</string>
 </resources>

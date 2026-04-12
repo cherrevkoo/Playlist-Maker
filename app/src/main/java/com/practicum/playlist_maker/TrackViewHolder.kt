@@ -30,6 +30,7 @@ class TrackViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         Glide.with(itemView)
             .load(item.artworkUrl100)
             .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
             .centerCrop()
             .apply(RequestOptions().transform(RoundedCorners(cornerRadiusInPx)))
             .into(trackIcon)

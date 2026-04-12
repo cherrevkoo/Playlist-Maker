@@ -23,6 +23,10 @@
     <color name="search_icon_color">#AEAFB4</color>
     <color name="track_name_color">#000000</color>
     <color name="track_info_color">@color/YP_Grey</color>
+    <color name="placeholderTextColor">#000000</color>
+    <color name="placeholderButtonBackground">#1A1B22</color>
+    <color name="placeholderButtonTextColor">#FFFFFF</color>
+
 
 
 
