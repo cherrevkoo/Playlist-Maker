@@ -22,6 +22,10 @@
     <color name="search_icon_color">@color/YP_Black</color>
     <color name="track_name_color">@color/YP_White</color>
     <color name="track_info_color">@color/YP_White</color>
+    <color name="placeholderTextColor">#FFFFFF</color>
+    <color name="placeholderButtonBackground">#FFFFFF</color>
+    <color name="placeholderButtonTextColor">#000000</color>
+
 
 
 </resources>
