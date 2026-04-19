@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,8 +37,14 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var placeholderLayout: LinearLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var tracksAdapter: TrackAdapter
+
+    private lateinit var historyAdapter: TrackAdapter
     private lateinit var api: ItunesApi
     private lateinit var retryButton: MaterialButton
+    private lateinit var searchHistory: SearchHistory
+    private lateinit var historyTitle: TextView
+    private lateinit var historyClearButton: MaterialButton
+    private lateinit var historyRecyclerView: RecyclerView
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -66,7 +73,13 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
 
-        searchEditText = findViewById<EditText>(R.id.searchEditText)
+        searchEditText = findViewById(R.id.searchEditText)
+
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        tracksAdapter = TrackAdapter(mutableListOf())
+        recyclerView.adapter = tracksAdapter
+        recyclerView.visibility = View.GONE
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://itunes.apple.com")
@@ -74,6 +87,7 @@ class SearchActivity : AppCompatActivity() {
             .build()
 
         api = retrofit.create(ItunesApi::class.java)
+
 
         searchEditText.post {
             searchEditText.requestFocus()
@@ -99,15 +113,6 @@ class SearchActivity : AppCompatActivity() {
             inputMethodManager?.hideSoftInputFromWindow(searchEditText.windowToken, 0)
         }
 
-        val tracks = mutableListOf<Track>()
-
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        tracksAdapter = TrackAdapter(tracks)
-        recyclerView.adapter = tracksAdapter
-        recyclerView.visibility = View.GONE
-
         placeholderLayout = findViewById(R.id.placeholderLayout)
         placeholderLayout.visibility = View.GONE
 
@@ -130,6 +135,43 @@ class SearchActivity : AppCompatActivity() {
             if (lastQuery.isNotEmpty()) {
                 performSearch(lastQuery)
             }
+        }
+
+        val sharedPreferences = getSharedPreferences("playlist_maker_search_history", MODE_PRIVATE)
+        searchHistory = SearchHistory(sharedPreferences)
+
+        val historyTracks = searchHistory.getHistory()
+
+        historyRecyclerView = findViewById(R.id.historyRecyclerView)
+        historyRecyclerView.layoutManager = LinearLayoutManager(this)
+        historyAdapter = TrackAdapter(searchHistory.getHistory().toMutableList())
+        historyRecyclerView.adapter = historyAdapter
+
+        historyAdapter.updateTracks(historyTracks)
+
+        searchEditText.doOnTextChanged { text, _, _, _ ->
+            updateViewsVisibility()
+        }
+
+        searchEditText.setOnFocusChangeListener { _, hasFocus ->
+          updateViewsVisibility()
+        }
+
+        tracksAdapter.setOnItemClickListener { track ->
+            searchHistory.addTrack(track)
+            val updatedHistory = searchHistory.getHistory()
+            historyAdapter.updateTracks(updatedHistory)
+            updateViewsVisibility()
+        }
+
+        historyTitle = findViewById(R.id.historyTitle)
+
+        historyClearButton = findViewById(R.id.clearHistoryButton)
+
+        historyClearButton.setOnClickListener {
+            searchHistory.clearHistory()
+            historyAdapter.updateTracks(emptyList())
+            updateViewsVisibility()
         }
     }
 
@@ -159,7 +201,8 @@ class SearchActivity : AppCompatActivity() {
                             artistName = song.artistName ?: "",
                             trackTime = SimpleDateFormat("mm:ss", Locale.getDefault())
                                 .format(song.trackTimeMillis ?: 0L),
-                            artworkUrl100 = song.artworkUrl100 ?: ""
+                            artworkUrl100 = song.artworkUrl100 ?: "",
+                            trackId = song.trackId
                         )
                     }.toMutableList()
                     tracksAdapter.updateTracks(tracksList)
@@ -194,5 +237,35 @@ class SearchActivity : AppCompatActivity() {
             placeholderText.text = getString(R.string.nothing_is_found)
             retryButton.visibility = View.GONE
         }
+    }
+
+    private fun updateViewsVisibility() {
+        val isSearchEmpty = searchEditText.text.isEmpty()
+        val hasFocus = searchEditText.hasFocus()
+        val hasHistory = historyAdapter.itemCount > 0
+
+        if (isSearchEmpty && hasFocus && hasHistory) {
+            historyRecyclerView.visibility = View.VISIBLE
+            historyTitle.visibility = View.VISIBLE
+            historyClearButton.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+            placeholderLayout.visibility = View.GONE
+
+        } else if (!isSearchEmpty) {
+            recyclerView.visibility = View.VISIBLE
+            historyRecyclerView.visibility = View.GONE
+            historyTitle.visibility = View.GONE
+            historyClearButton.visibility = View.GONE
+            placeholderLayout.visibility = View.GONE
+
+        } else {
+            recyclerView.visibility = View.GONE
+            historyRecyclerView.visibility = View.GONE
+            historyTitle.visibility = View.GONE
+            historyClearButton.visibility = View.GONE
+            placeholderLayout.visibility = View.GONE
+
+        }
+
     }
 }
