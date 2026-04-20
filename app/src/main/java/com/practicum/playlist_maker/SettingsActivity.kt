@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.appbar.MaterialToolbar
@@ -63,16 +62,13 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(agreementIntent)
         }
 
-        val darkThemeSwitch = findViewById<SwitchMaterial>(R.id.dark_theme_switch)
+        val themeSwitcher = findViewById<SwitchMaterial>(R.id.dark_theme_switch)
 
-        darkThemeSwitch.isChecked =
-            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+        themeSwitcher.isChecked = (applicationContext as App).darkTheme
 
-        darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            AppCompatDelegate.setDefaultNightMode(
-                if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
-                else AppCompatDelegate.MODE_NIGHT_NO
-            )
+        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
+            (applicationContext as App).switchTheme(checked)
+
         }
 
     }
