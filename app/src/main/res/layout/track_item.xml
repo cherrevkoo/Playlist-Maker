@@ -10,9 +10,9 @@
     <ImageView
         android:id="@+id/track_icon"
         android:layout_width="@dimen/track_icon_size"
-        android:layout_height="@dimen/track_icon_size"
-        android:scaleType="centerCrop"
-        android:layout_marginStart="@dimen/track_icon_margin_start"/>
+        android:layout_height="45dp"
+        android:layout_marginStart="@dimen/track_icon_margin_start"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
 

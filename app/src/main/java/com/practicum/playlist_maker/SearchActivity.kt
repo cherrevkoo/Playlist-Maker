@@ -2,7 +2,9 @@ package com.practicum.playlist_maker
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -37,7 +39,6 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var placeholderLayout: LinearLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var tracksAdapter: TrackAdapter
-
     private lateinit var historyAdapter: TrackAdapter
     private lateinit var api: ItunesApi
     private lateinit var retryButton: MaterialButton
@@ -162,6 +163,31 @@ class SearchActivity : AppCompatActivity() {
             val updatedHistory = searchHistory.getHistory()
             historyAdapter.updateTracks(updatedHistory)
             updateViewsVisibility()
+
+            val intent = Intent(this, PlayerActivity::class.java)
+            intent.putExtra("TRACK_NAME", track.trackName)
+            intent.putExtra("ARTIST_NAME", track.artistName)
+            intent.putExtra("ALBUM_NAME", track.collectionName ?: "")
+            intent.putExtra("RELEASE_DATE", track.releaseDate ?: "")
+            intent.putExtra("GENRE", track.primaryGenreName)
+            intent.putExtra("COUNTRY", track.country)
+            intent.putExtra("TRACK_TIME", track.trackTime)
+            intent.putExtra("ARTWORK_URL", track.artworkUrl100)
+            Log.d("TrackIntent", "album=${track.collectionName}, year=${track.releaseDate}, genre=${track.primaryGenreName}, country=${track.country}")
+            startActivity(intent)
+        }
+
+        historyAdapter.setOnItemClickListener { track ->
+            val intent = Intent(this, PlayerActivity::class.java)
+            intent.putExtra("TRACK_NAME", track.trackName)
+            intent.putExtra("ARTIST_NAME", track.artistName)
+            intent.putExtra("ALBUM_NAME", track.collectionName ?: "")
+            intent.putExtra("RELEASE_DATE", track.releaseDate ?: "")
+            intent.putExtra("GENRE", track.primaryGenreName)
+            intent.putExtra("COUNTRY", track.country)
+            intent.putExtra("TRACK_TIME", track.trackTime)
+            intent.putExtra("ARTWORK_URL", track.artworkUrl100)
+            startActivity(intent)
         }
 
         historyTitle = findViewById(R.id.historyTitle)
@@ -202,7 +228,11 @@ class SearchActivity : AppCompatActivity() {
                             trackTime = SimpleDateFormat("mm:ss", Locale.getDefault())
                                 .format(song.trackTimeMillis ?: 0L),
                             artworkUrl100 = song.artworkUrl100 ?: "",
-                            trackId = song.trackId
+                            trackId = song.trackId,
+                            collectionName = song.collectionName,
+                            releaseDate = song.releaseDate,
+                            primaryGenreName = song.primaryGenreName ?: "",
+                            country = song.country ?: ""
                         )
                     }.toMutableList()
                     tracksAdapter.updateTracks(tracksList)
