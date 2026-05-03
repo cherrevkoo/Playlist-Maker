@@ -27,6 +27,9 @@
     <color name="placeholderButtonBackground">#1A1B22</color>
     <color name="placeholderButtonTextColor">#FFFFFF</color>
 
+    <color name="play_button_bg">#1A1B22</color>
+    <color name="little_button_bg">#401A1B22</color>
+    <color name="playlist_back">#1A1B22</color>
 
 
 
