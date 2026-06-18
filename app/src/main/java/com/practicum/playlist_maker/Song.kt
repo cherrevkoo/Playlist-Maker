@@ -1,5 +1,7 @@
 package com.practicum.playlist_maker
 
+import kotlinx.coroutines.FlowPreview
+
 data class Song(
     val trackName: String?,
     val artistName: String?,
@@ -9,5 +11,7 @@ data class Song(
     val collectionName: String?,
     val releaseDate: String?,
     val primaryGenreName: String?,
-    val country: String?
+    val country: String?,
+    val previewUrl: String?
+
 )

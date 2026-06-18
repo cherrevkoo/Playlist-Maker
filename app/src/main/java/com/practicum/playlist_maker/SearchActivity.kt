@@ -173,6 +173,7 @@ class SearchActivity : AppCompatActivity() {
             intent.putExtra("COUNTRY", track.country)
             intent.putExtra("TRACK_TIME", track.trackTime)
             intent.putExtra("ARTWORK_URL", track.artworkUrl100)
+            intent.putExtra("PREVIEW_URL",track.previewUrl)
             Log.d("TrackIntent", "album=${track.collectionName}, year=${track.releaseDate}, genre=${track.primaryGenreName}, country=${track.country}")
             startActivity(intent)
         }
@@ -187,6 +188,7 @@ class SearchActivity : AppCompatActivity() {
             intent.putExtra("COUNTRY", track.country)
             intent.putExtra("TRACK_TIME", track.trackTime)
             intent.putExtra("ARTWORK_URL", track.artworkUrl100)
+            intent.putExtra("PREVIEW_URL", track.previewUrl)
             startActivity(intent)
         }
 
@@ -232,7 +234,8 @@ class SearchActivity : AppCompatActivity() {
                             collectionName = song.collectionName,
                             releaseDate = song.releaseDate,
                             primaryGenreName = song.primaryGenreName ?: "",
-                            country = song.country ?: ""
+                            country = song.country ?: "",
+                            previewUrl = song.previewUrl ?: ""
                         )
                     }.toMutableList()
                     tracksAdapter.updateTracks(tracksList)
