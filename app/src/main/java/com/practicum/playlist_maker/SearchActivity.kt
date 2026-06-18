@@ -4,14 +4,16 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
-import org.w3c.dom.Text
+import kotlinx.coroutines.Runnable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,6 +48,10 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var historyTitle: TextView
     private lateinit var historyClearButton: MaterialButton
     private lateinit var historyRecyclerView: RecyclerView
+    private val searchHandler = Handler(Looper.getMainLooper())
+    private var searchRunnable: Runnable? = null
+    private lateinit var progressBar: ProgressBar
+    private var isClickAllowed = true
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -75,6 +81,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         searchEditText = findViewById(R.id.searchEditText)
+        progressBar = findViewById(R.id.progressBar)
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -101,9 +108,24 @@ class SearchActivity : AppCompatActivity() {
         searchEditText.doOnTextChanged { text, _, _, _ ->
             clearButton.visibility = if (text.isNullOrEmpty()) View.GONE else View.VISIBLE
             searchQuery = text.toString()
+
+            searchRunnable?.let {
+                searchHandler.removeCallbacks(it)
+            }
+
+            if (searchQuery.isNotBlank()) {
+                searchRunnable = Runnable {
+                    performSearch(searchQuery)
+                }
+                searchHandler.postDelayed(searchRunnable!!, 2000)
+            }
         }
 
         clearButton.setOnClickListener {
+            searchRunnable?.let {
+                searchHandler.removeCallbacks(it)
+
+            }
             searchEditText.text.clear()
             recyclerView.visibility = View.GONE
             placeholderLayout.visibility = View.GONE
@@ -117,7 +139,7 @@ class SearchActivity : AppCompatActivity() {
         placeholderLayout = findViewById(R.id.placeholderLayout)
         placeholderLayout.visibility = View.GONE
 
-        searchEditText.setOnEditorActionListener { _, actionId, _ ->
+/*        searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val query = searchEditText.text.toString().trim()
                 if (query.isNotEmpty()) {
@@ -127,7 +149,7 @@ class SearchActivity : AppCompatActivity() {
                 }
                 true
             } else false
-        }
+        }*/
 
         retryButton = findViewById(R.id.placeholderRetryButton)
         retryButton.visibility = View.GONE
@@ -159,37 +181,41 @@ class SearchActivity : AppCompatActivity() {
         }
 
         tracksAdapter.setOnItemClickListener { track ->
-            searchHistory.addTrack(track)
-            val updatedHistory = searchHistory.getHistory()
-            historyAdapter.updateTracks(updatedHistory)
-            updateViewsVisibility()
+            if (clickDebounce()) {
+                searchHistory.addTrack(track)
+                val updatedHistory = searchHistory.getHistory()
+                historyAdapter.updateTracks(updatedHistory)
+                updateViewsVisibility()
 
-            val intent = Intent(this, PlayerActivity::class.java)
-            intent.putExtra("TRACK_NAME", track.trackName)
-            intent.putExtra("ARTIST_NAME", track.artistName)
-            intent.putExtra("ALBUM_NAME", track.collectionName ?: "")
-            intent.putExtra("RELEASE_DATE", track.releaseDate ?: "")
-            intent.putExtra("GENRE", track.primaryGenreName)
-            intent.putExtra("COUNTRY", track.country)
-            intent.putExtra("TRACK_TIME", track.trackTime)
-            intent.putExtra("ARTWORK_URL", track.artworkUrl100)
-            intent.putExtra("PREVIEW_URL",track.previewUrl)
-            Log.d("TrackIntent", "album=${track.collectionName}, year=${track.releaseDate}, genre=${track.primaryGenreName}, country=${track.country}")
-            startActivity(intent)
+                val intent = Intent(this, PlayerActivity::class.java)
+                intent.putExtra("TRACK_NAME", track.trackName)
+                intent.putExtra("ARTIST_NAME", track.artistName)
+                intent.putExtra("ALBUM_NAME", track.collectionName ?: "")
+                intent.putExtra("RELEASE_DATE", track.releaseDate ?: "")
+                intent.putExtra("GENRE", track.primaryGenreName)
+                intent.putExtra("COUNTRY", track.country)
+                intent.putExtra("TRACK_TIME", track.trackTime)
+                intent.putExtra("ARTWORK_URL", track.artworkUrl100)
+                intent.putExtra("PREVIEW_URL",track.previewUrl)
+                Log.d("TrackIntent", "album=${track.collectionName}, year=${track.releaseDate}, genre=${track.primaryGenreName}, country=${track.country}")
+                startActivity(intent)
+            }
         }
 
         historyAdapter.setOnItemClickListener { track ->
-            val intent = Intent(this, PlayerActivity::class.java)
-            intent.putExtra("TRACK_NAME", track.trackName)
-            intent.putExtra("ARTIST_NAME", track.artistName)
-            intent.putExtra("ALBUM_NAME", track.collectionName ?: "")
-            intent.putExtra("RELEASE_DATE", track.releaseDate ?: "")
-            intent.putExtra("GENRE", track.primaryGenreName)
-            intent.putExtra("COUNTRY", track.country)
-            intent.putExtra("TRACK_TIME", track.trackTime)
-            intent.putExtra("ARTWORK_URL", track.artworkUrl100)
-            intent.putExtra("PREVIEW_URL", track.previewUrl)
-            startActivity(intent)
+            if (clickDebounce()) {
+                val intent = Intent(this, PlayerActivity::class.java)
+                intent.putExtra("TRACK_NAME", track.trackName)
+                intent.putExtra("ARTIST_NAME", track.artistName)
+                intent.putExtra("ALBUM_NAME", track.collectionName ?: "")
+                intent.putExtra("RELEASE_DATE", track.releaseDate ?: "")
+                intent.putExtra("GENRE", track.primaryGenreName)
+                intent.putExtra("COUNTRY", track.country)
+                intent.putExtra("TRACK_TIME", track.trackTime)
+                intent.putExtra("ARTWORK_URL", track.artworkUrl100)
+                intent.putExtra("PREVIEW_URL", track.previewUrl)
+                startActivity(intent)
+            }
         }
 
         historyTitle = findViewById(R.id.historyTitle)
@@ -206,6 +232,8 @@ class SearchActivity : AppCompatActivity() {
     private fun performSearch(query: String) {
         if (query.isBlank()) return
 
+        progressBar.visibility = View.VISIBLE
+
         lastQuery = query
         placeholderLayout.visibility = View.GONE
         recyclerView.visibility = View.GONE
@@ -214,6 +242,7 @@ class SearchActivity : AppCompatActivity() {
 
         api.search(encodedQuery).enqueue(object : Callback<SearchResponse> {
             override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
+                progressBar.visibility = View.GONE
                 if (!response.isSuccessful || response.body() == null) {
                     showPlaceholder(isError = true)
                     return
@@ -245,6 +274,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                progressBar.visibility = View.GONE
                 showPlaceholder(isError = true)
             }
         })
@@ -299,6 +329,14 @@ class SearchActivity : AppCompatActivity() {
             placeholderLayout.visibility = View.GONE
 
         }
+    }
 
+    private fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            searchHandler.postDelayed({ isClickAllowed = true }, 1000)
+        }
+        return current
     }
 }
