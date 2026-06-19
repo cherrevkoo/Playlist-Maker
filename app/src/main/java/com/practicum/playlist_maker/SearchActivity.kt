@@ -139,18 +139,6 @@ class SearchActivity : AppCompatActivity() {
         placeholderLayout = findViewById(R.id.placeholderLayout)
         placeholderLayout.visibility = View.GONE
 
-/*        searchEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val query = searchEditText.text.toString().trim()
-                if (query.isNotEmpty()) {
-                    performSearch(query)
-                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
-                }
-                true
-            } else false
-        }*/
-
         retryButton = findViewById(R.id.placeholderRetryButton)
         retryButton.visibility = View.GONE
 
@@ -188,15 +176,7 @@ class SearchActivity : AppCompatActivity() {
                 updateViewsVisibility()
 
                 val intent = Intent(this, PlayerActivity::class.java)
-                intent.putExtra("TRACK_NAME", track.trackName)
-                intent.putExtra("ARTIST_NAME", track.artistName)
-                intent.putExtra("ALBUM_NAME", track.collectionName ?: "")
-                intent.putExtra("RELEASE_DATE", track.releaseDate ?: "")
-                intent.putExtra("GENRE", track.primaryGenreName)
-                intent.putExtra("COUNTRY", track.country)
-                intent.putExtra("TRACK_TIME", track.trackTime)
-                intent.putExtra("ARTWORK_URL", track.artworkUrl100)
-                intent.putExtra("PREVIEW_URL",track.previewUrl)
+                intent.putExtra("TRACK", track)
                 Log.d("TrackIntent", "album=${track.collectionName}, year=${track.releaseDate}, genre=${track.primaryGenreName}, country=${track.country}")
                 startActivity(intent)
             }
@@ -205,15 +185,7 @@ class SearchActivity : AppCompatActivity() {
         historyAdapter.setOnItemClickListener { track ->
             if (clickDebounce()) {
                 val intent = Intent(this, PlayerActivity::class.java)
-                intent.putExtra("TRACK_NAME", track.trackName)
-                intent.putExtra("ARTIST_NAME", track.artistName)
-                intent.putExtra("ALBUM_NAME", track.collectionName ?: "")
-                intent.putExtra("RELEASE_DATE", track.releaseDate ?: "")
-                intent.putExtra("GENRE", track.primaryGenreName)
-                intent.putExtra("COUNTRY", track.country)
-                intent.putExtra("TRACK_TIME", track.trackTime)
-                intent.putExtra("ARTWORK_URL", track.artworkUrl100)
-                intent.putExtra("PREVIEW_URL", track.previewUrl)
+                intent.putExtra("TRACK", track)
                 startActivity(intent)
             }
         }
@@ -338,5 +310,12 @@ class SearchActivity : AppCompatActivity() {
             searchHandler.postDelayed({ isClickAllowed = true }, 1000)
         }
         return current
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+
+        searchRunnable?.let {
+            searchHandler.removeCallbacks(it)
+        }
     }
 }

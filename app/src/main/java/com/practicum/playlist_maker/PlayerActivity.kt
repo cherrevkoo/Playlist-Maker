@@ -5,6 +5,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -28,12 +29,6 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var playTime: TextView
 
     private var playerState = STATE_DEFAULT
-    companion object {
-        private const val STATE_DEFAULT = 0
-        private const val STATE_PREPARED = 1
-        private const val STATE_PLAYING = 2
-        private const val STATE_PAUSED = 3
-    }
     private var mediaPlayer = MediaPlayer()
     private var isLiked: Boolean = false
     private var trackName: String = ""
@@ -47,6 +42,9 @@ class PlayerActivity : AppCompatActivity() {
     private var previewUrl: String = ""
     private val handler = Handler(Looper.getMainLooper())
     private var timer: Runnable? = null
+    private val dateFormat by lazy {
+        SimpleDateFormat("mm:ss", Locale.getDefault())
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,17 +79,18 @@ class PlayerActivity : AppCompatActivity() {
             }
         }
 
+        val track = intent.getParcelableExtra<Track>("TRACK")
 
-        intent?.let {
-            trackName = it.getStringExtra("TRACK_NAME") ?: ""
-            artistName = it.getStringExtra("ARTIST_NAME") ?: ""
-            albumName = it.getStringExtra("ALBUM_NAME") ?: ""
-            releaseDate = it.getStringExtra("RELEASE_DATE") ?: ""
-            genre = it.getStringExtra("GENRE") ?: ""
-            country = it.getStringExtra("COUNTRY") ?: ""
-            trackTime = it.getStringExtra("TRACK_TIME") ?: ""
-            artworkUrl = it.getStringExtra("ARTWORK_URL") ?: ""
-            previewUrl = it.getStringExtra("PREVIEW_URL") ?: ""
+        track?.let {
+            trackName = it.trackName
+            artistName = it.artistName
+            albumName = it.collectionName ?: ""
+            releaseDate = it.releaseDate ?: ""
+            genre = it.primaryGenreName
+            country = it.country
+            trackTime = it.trackTime
+            artworkUrl = it.artworkUrl100
+            previewUrl = it.previewUrl
         } ?: run {
 
             val prefs = getSharedPreferences("player_state", MODE_PRIVATE)
@@ -165,7 +164,7 @@ class PlayerActivity : AppCompatActivity() {
         mediaPlayer.setOnCompletionListener {
             playButton.setImageResource(R.drawable.button_play)
             playerState = STATE_PREPARED
-            playTime.text = "00:00"
+            playTime.text = dateFormat.format(mediaPlayer.currentPosition)
             timer?.let {
                 handler.removeCallbacks(it)
             }
@@ -189,7 +188,7 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    override fun onPause(){
+    override fun onPause() {
         super.onPause()
 
         if (playerState == STATE_PLAYING) {
@@ -197,40 +196,37 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    private fun playbackControl() {
-        when (playerState) {
-
-            STATE_PLAYING -> {
-                pausePlayer()
-            }
-
-            STATE_PREPARED,
-            STATE_PAUSED -> {
-                startPlayer()
-            }
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
-
         timer?.let {
             handler.removeCallbacks(it)
         }
-
         mediaPlayer.release()
     }
 
+    private fun playbackControl() {
+        when (playerState) {
+            STATE_PLAYING -> pausePlayer()
+            STATE_PREPARED,
+            STATE_PAUSED -> startPlayer()
+        }
+    }
     private fun createUpdateTimer() : Runnable {
         return object : Runnable {
             override fun run(){
                 if (playerState == STATE_PLAYING) {
-                    playTime.text = SimpleDateFormat(
-                        "mm:ss", Locale.getDefault()).format(mediaPlayer.currentPosition)
-                    handler.postDelayed(this,300)
+                    playTime.text = dateFormat.format(mediaPlayer.currentPosition)
+                    handler.postDelayed(this, TIMER_UPDATE_DELAY)
                 }
             }
         }
     }
+    companion object {
+        private const val STATE_DEFAULT = 0
+        private const val STATE_PREPARED = 1
+        private const val STATE_PLAYING = 2
+        private const val STATE_PAUSED = 3
 
+        private const val TIMER_UPDATE_DELAY = 300L
+    }
 }
