@@ -1,7 +1,6 @@
-package com.practicum.playlist_maker
+package com.practicum.playlist_maker.ui.search
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -24,15 +23,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
-import kotlinx.coroutines.Runnable
+import com.practicum.playlist_maker.R
+import com.practicum.playlist_maker.data.SearchHistory
+import com.practicum.playlist_maker.data.dto.TrackSearchResponse
+import com.practicum.playlist_maker.data.network.ItunesApi
+import com.practicum.playlist_maker.domain.models.Track
+import com.practicum.playlist_maker.ui.PlayerActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.URLEncoder
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class SearchActivity : AppCompatActivity() {
     private var searchQuery: String = ""
@@ -99,7 +101,7 @@ class SearchActivity : AppCompatActivity() {
 
         searchEditText.post {
             searchEditText.requestFocus()
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT)
         }
 
@@ -132,7 +134,7 @@ class SearchActivity : AppCompatActivity() {
             tracksAdapter.updateTracks(mutableListOf())
 
             val inputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
             inputMethodManager?.hideSoftInputFromWindow(searchEditText.windowToken, 0)
         }
 
@@ -212,8 +214,8 @@ class SearchActivity : AppCompatActivity() {
 
         val encodedQuery = URLEncoder.encode(query, "UTF-8")
 
-        api.search(encodedQuery).enqueue(object : Callback<SearchResponse> {
-            override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
+        api.searchTracks(encodedQuery).enqueue(object : Callback<TrackSearchResponse> {
+            override fun onResponse(call: Call<TrackSearchResponse>, response: Response<TrackSearchResponse>) {
                 progressBar.visibility = View.GONE
                 if (!response.isSuccessful || response.body() == null) {
                     showPlaceholder(isError = true)
@@ -228,8 +230,7 @@ class SearchActivity : AppCompatActivity() {
                         Track(
                             trackName = song.trackName ?: "",
                             artistName = song.artistName ?: "",
-                            trackTime = SimpleDateFormat("mm:ss", Locale.getDefault())
-                                .format(song.trackTimeMillis ?: 0L),
+                            trackTime = song.trackTimeMillis,
                             artworkUrl100 = song.artworkUrl100 ?: "",
                             trackId = song.trackId,
                             collectionName = song.collectionName,
@@ -245,7 +246,7 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+            override fun onFailure(call: Call<TrackSearchResponse>, t: Throwable) {
                 progressBar.visibility = View.GONE
                 showPlaceholder(isError = true)
             }

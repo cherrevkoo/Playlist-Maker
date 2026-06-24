@@ -1,8 +1,6 @@
-package com.practicum.playlist_maker
+package com.practicum.playlist_maker.data.dto
 
-import kotlinx.coroutines.FlowPreview
-
-data class Song(
+data class TrackDTO(
     val trackName: String?,
     val artistName: String?,
     val trackTimeMillis: Long?,

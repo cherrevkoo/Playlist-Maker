@@ -14,20 +14,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlaylistMaker">
 
-        <activity android:name=".PlayerActivity"
+        <activity android:name=".ui.PlayerActivity"
             android:exported="false"/>
         <activity
-            android:name=".SearchActivity"
+            android:name=".ui.search.SearchActivity"
             android:theme="@style/SearchActivityTheme"
             android:exported="false" />
         <activity
-            android:name=".MediaActivity"
+            android:name=".ui.MediaActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ui.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

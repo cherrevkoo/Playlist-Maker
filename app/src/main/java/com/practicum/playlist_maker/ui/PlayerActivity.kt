@@ -1,11 +1,10 @@
-package com.practicum.playlist_maker
+package com.practicum.playlist_maker.ui
 
 import android.annotation.SuppressLint
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,6 +15,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.practicum.playlist_maker.R
+import com.practicum.playlist_maker.domain.models.Track
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -82,15 +83,15 @@ class PlayerActivity : AppCompatActivity() {
         val track = intent.getParcelableExtra<Track>("TRACK")
 
         track?.let {
-            trackName = it.trackName
-            artistName = it.artistName
+            trackName = it.trackName.toString()
+            artistName = it.artistName.toString()
             albumName = it.collectionName ?: ""
             releaseDate = it.releaseDate ?: ""
-            genre = it.primaryGenreName
-            country = it.country
-            trackTime = it.trackTime
-            artworkUrl = it.artworkUrl100
-            previewUrl = it.previewUrl
+            genre = it.primaryGenreName.toString()
+            country = it.country.toString()
+            trackTime = it.trackTime.toString()
+            artworkUrl = it.artworkUrl100.toString()
+            previewUrl = it.previewUrl.toString()
         } ?: run {
 
             val prefs = getSharedPreferences("player_state", MODE_PRIVATE)
