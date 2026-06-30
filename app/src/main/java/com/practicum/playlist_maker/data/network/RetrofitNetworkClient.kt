@@ -9,9 +9,9 @@ import java.io.IOException
 
 
 class RetrofitNetworkClient : NetworkClient {
-    private val imdbBaseUrl = "https://itunes.apple.com"
+
     private val retrofit = Retrofit.Builder()
-        .baseUrl(imdbBaseUrl)
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -31,4 +31,7 @@ class RetrofitNetworkClient : NetworkClient {
         }
     }
 
+    private companion object {
+        private const val BASE_URL = "https://itunes.apple.com"
+    }
 }

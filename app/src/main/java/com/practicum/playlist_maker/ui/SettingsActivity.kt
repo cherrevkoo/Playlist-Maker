@@ -44,7 +44,6 @@ class SettingsActivity : AppCompatActivity() {
             val body = getString(R.string.email_body)
 
             val intent = Intent(Intent.ACTION_SEND).apply {
-//                Intent.setType = "message/rfc822"
                 putExtra(Intent.EXTRA_EMAIL, addresses)
                 putExtra(Intent.EXTRA_SUBJECT, subject)
                 putExtra(Intent.EXTRA_TEXT, body)
