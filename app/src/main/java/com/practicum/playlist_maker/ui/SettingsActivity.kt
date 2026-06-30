@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker
+package com.practicum.playlist_maker.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,8 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.textview.MaterialTextView
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.android.material.textview.MaterialTextView
+import com.practicum.playlist_maker.App
+import com.practicum.playlist_maker.R
 
 class SettingsActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -42,7 +44,6 @@ class SettingsActivity : AppCompatActivity() {
             val body = getString(R.string.email_body)
 
             val intent = Intent(Intent.ACTION_SEND).apply {
-                type = "message/rfc822"
                 putExtra(Intent.EXTRA_EMAIL, addresses)
                 putExtra(Intent.EXTRA_SUBJECT, subject)
                 putExtra(Intent.EXTRA_TEXT, body)

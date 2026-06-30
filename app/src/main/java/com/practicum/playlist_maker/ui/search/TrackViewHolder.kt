@@ -1,13 +1,16 @@
-package com.practicum.playlist_maker
+package com.practicum.playlist_maker.ui.search
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.practicum.playlist_maker.R
+import com.practicum.playlist_maker.domain.models.Track
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class TrackViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private val trackIcon: ImageView = itemView.findViewById(R.id.track_icon)
@@ -22,7 +25,10 @@ class TrackViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     fun bind(item: Track) {
         trackName.text = item.trackName
         artistName.text = item.artistName
-        trackTime.text = item.trackTime
+        trackTime.text = SimpleDateFormat(
+            "mm:ss",
+            Locale.getDefault()
+        ).format(item.trackTime ?: 0L)
 
         val cornerRadiusInPx = (2 * itemView.context.resources.displayMetrics.density).toInt()
 
