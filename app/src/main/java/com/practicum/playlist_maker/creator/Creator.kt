@@ -1,6 +1,11 @@
 package com.practicum.playlist_maker.creator
 
 import android.content.Context
+import com.google.gson.Gson
+import com.practicum.playlist_maker.player.data.repository.PlayerRepositoryImpl
+import com.practicum.playlist_maker.player.domain.api.PlayerInteractor
+import com.practicum.playlist_maker.player.domain.api.PlayerRepository
+import com.practicum.playlist_maker.player.domain.impl.PlayerInteractorImpl
 import com.practicum.playlist_maker.search.domain.impl.SearchHistoryInteractorImpl
 import com.practicum.playlist_maker.search.data.repository.SearchHistoryRepositoryImpl
 import com.practicum.playlist_maker.search.data.repository.TracksRepositoryImpl
@@ -64,6 +69,22 @@ object Creator {
     fun provideSharingInteractor(context: Context): SharingInteractor {
         return SharingInteractorImpl(
             getExternalNavigator(context)
+        )
+    }
+
+    private fun getPlayerRepository(context: Context): PlayerRepository {
+        return PlayerRepositoryImpl(
+            context.getSharedPreferences(
+                "player_state",
+                Context.MODE_PRIVATE
+            ),
+            Gson()
+        )
+    }
+
+    fun providePlayerInteractor(context: Context): PlayerInteractor {
+        return PlayerInteractorImpl(
+            getPlayerRepository(context)
         )
     }
 
