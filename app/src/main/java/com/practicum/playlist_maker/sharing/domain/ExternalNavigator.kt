@@ -1,4 +1,10 @@
 package com.practicum.playlist_maker.sharing.domain
 
-class ExternalNavigator {
+interface ExternalNavigator {
+
+    fun shareApp()
+
+    fun openSupport()
+
+    fun openTerms()
 }

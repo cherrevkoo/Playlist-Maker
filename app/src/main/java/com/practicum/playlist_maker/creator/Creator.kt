@@ -10,6 +10,14 @@ import com.practicum.playlist_maker.search.domain.api.SearchHistoryRepository
 import com.practicum.playlist_maker.search.domain.api.TracksInteractor
 import com.practicum.playlist_maker.search.domain.api.TracksRepository
 import com.practicum.playlist_maker.search.domain.impl.TracksInteractorImpl
+import com.practicum.playlist_maker.settings.data.impl.SettingsRepositoryImpl
+import com.practicum.playlist_maker.settings.domain.SettingsInteractor
+import com.practicum.playlist_maker.settings.domain.SettingsInteractorImpl
+import com.practicum.playlist_maker.settings.domain.SettingsRepository
+import com.practicum.playlist_maker.sharing.data.impl.ExternalNavigatorImpl
+import com.practicum.playlist_maker.sharing.data.impl.SharingInteractorImpl
+import com.practicum.playlist_maker.sharing.domain.ExternalNavigator
+import com.practicum.playlist_maker.sharing.domain.SharingInteractor
 
 object Creator {
     private fun getTracksRepository(): TracksRepository {
@@ -33,4 +41,30 @@ object Creator {
             getSearchHistoryRepository(context)
         )
     }
+
+    private fun getSettingsRepository(context: Context): SettingsRepository {
+        return SettingsRepositoryImpl(
+            context.getSharedPreferences(
+                "playlist_maker_settings",
+                Context.MODE_PRIVATE
+            )
+        )
+    }
+
+    fun provideSettingsInteractor(context: Context): SettingsInteractor {
+        return SettingsInteractorImpl(
+            getSettingsRepository(context)
+        )
+    }
+
+    private fun getExternalNavigator(context: Context): ExternalNavigator {
+        return ExternalNavigatorImpl(context)
+    }
+
+    fun provideSharingInteractor(context: Context): SharingInteractor {
+        return SharingInteractorImpl(
+            getExternalNavigator(context)
+        )
+    }
+
 }

@@ -6,7 +6,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.appbar.MaterialToolbar
@@ -14,8 +16,17 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textview.MaterialTextView
 import com.practicum.playlist_maker.R
 import com.practicum.playlist_maker.creator.App
+import com.practicum.playlist_maker.creator.Creator
 
 class SettingsActivity : AppCompatActivity() {
+
+    private val viewModel: SettingsViewModel by viewModels {
+        SettingsViewModelFactory(
+            Creator.provideSharingInteractor(applicationContext),
+            Creator.provideSettingsInteractor(applicationContext)
+        )
+    }
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,46 +42,36 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
 
+        val themeSwitcher = findViewById<SwitchMaterial>(R.id.dark_theme_switch)
+
+        viewModel.observeState().observe(this) { state ->
+            if (themeSwitcher.isChecked != state.isDarkTheme) {
+                themeSwitcher.isChecked = state.isDarkTheme
+            }
+
+            AppCompatDelegate.setDefaultNightMode(
+                if (state.isDarkTheme) {
+                    AppCompatDelegate.MODE_NIGHT_YES
+                } else {
+                    AppCompatDelegate.MODE_NIGHT_NO
+                }
+            )
+        }
+
+        themeSwitcher.setOnCheckedChangeListener { _, checked ->
+            viewModel.onThemeSwitch(checked)
+        }
+
         findViewById<MaterialTextView>(R.id.share_app).setOnClickListener {
-            val shareIntent = Intent(Intent.ACTION_SEND)
-            shareIntent.type = "text/plain"
-            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.android_course))
-            startActivity(Intent.createChooser(shareIntent, "Поделиться через"))
+            viewModel.onShareClick()
         }
 
         findViewById<MaterialTextView>(R.id.support).setOnClickListener {
-            val addresses = arrayOf(getString(R.string.student_email))
-            val subject = getString(R.string.email_subject)
-            val body = getString(R.string.email_body)
-
-            val intent = Intent(Intent.ACTION_SEND).apply {
-                putExtra(Intent.EXTRA_EMAIL, addresses)
-                putExtra(Intent.EXTRA_SUBJECT, subject)
-                putExtra(Intent.EXTRA_TEXT, body)
-            }
-
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(Intent.createChooser(intent, "Выберите почтовое приложение"))
-            } else {
-                Toast.makeText(this, "Нет почтового приложения на устройстве", Toast.LENGTH_SHORT).show()
-            }
+            viewModel.onSupportClick()
         }
 
         findViewById<MaterialTextView>(R.id.agreement).setOnClickListener {
-            val agreementIntent = Intent(
-                Intent.ACTION_VIEW, Uri.parse(getString(R.string.user_agreement))
-            )
-            startActivity(agreementIntent)
+            viewModel.onTermsClick()
         }
-
-        val themeSwitcher = findViewById<SwitchMaterial>(R.id.dark_theme_switch)
-
-        themeSwitcher.isChecked = (applicationContext as App).darkTheme
-
-        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
-            (applicationContext as App).switchTheme(checked)
-
-        }
-
     }
 }
