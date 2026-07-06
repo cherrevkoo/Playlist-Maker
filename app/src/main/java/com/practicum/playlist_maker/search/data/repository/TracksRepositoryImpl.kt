@@ -1,10 +1,11 @@
 package com.practicum.playlist_maker.search.data.repository
 
-import com.practicum.playlist_maker.search.data.network.NetworkClient
-import com.practicum.playlist_maker.search.domain.model.Track
 import com.practicum.playlist_maker.search.data.dto.TrackSearchRequest
 import com.practicum.playlist_maker.search.data.dto.TrackSearchResponse
+import com.practicum.playlist_maker.search.data.network.NetworkClient
+import com.practicum.playlist_maker.search.data.toDomain
 import com.practicum.playlist_maker.search.domain.api.TracksRepository
+import com.practicum.playlist_maker.search.domain.model.Track
 
 class TracksRepositoryImpl(private val networkClient: NetworkClient) : TracksRepository {
     override fun searchTracks(expression: String): List<Track> {
@@ -14,19 +15,6 @@ class TracksRepositoryImpl(private val networkClient: NetworkClient) : TracksRep
         }
         val searchResponse = response as? TrackSearchResponse
             ?: throw IllegalStateException()
-        return searchResponse.results.map {
-            Track(
-                it.trackName,
-                it.artistName,
-                it.trackTimeMillis,
-                it.artworkUrl100,
-                it.trackId,
-                it.collectionName,
-                it.releaseDate,
-                it.primaryGenreName,
-                it.country,
-                it.previewUrl
-            )
-        }
+        return searchResponse.results.map { it.toDomain() }
     }
 }

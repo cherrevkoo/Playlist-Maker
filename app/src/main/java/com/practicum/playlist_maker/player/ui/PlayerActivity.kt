@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.practicum.playlist_maker.R
-import com.practicum.playlist_maker.search.domain.model.Track
+import com.practicum.playlist_maker.search.ui.TrackParcelable
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -80,7 +80,7 @@ class PlayerActivity : AppCompatActivity() {
             }
         }
 
-        val track = intent.getParcelableExtra<Track>("TRACK")
+        val track = intent.getParcelableExtra<TrackParcelable>("TRACK")
 
         track?.let {
             trackName = it.trackName.toString()
@@ -89,7 +89,9 @@ class PlayerActivity : AppCompatActivity() {
             releaseDate = it.releaseDate ?: ""
             genre = it.primaryGenreName.toString()
             country = it.country.toString()
-            trackTime = it.trackTime.toString()
+            trackTime = it.trackTime?.let { time ->
+                dateFormat.format(time)
+            } ?: ""
             artworkUrl = it.artworkUrl100.toString()
             previewUrl = it.previewUrl.toString()
         } ?: run {
