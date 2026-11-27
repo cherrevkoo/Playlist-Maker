@@ -8,19 +8,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 
-class RetrofitNetworkClient : NetworkClient {
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val imdbService = retrofit.create(ItunesApi::class.java)
+class RetrofitNetworkClient(private val itunesApi: ItunesApi) : NetworkClient {
 
     override fun doRequest(dto: Any): Response {
         if (dto is TrackSearchRequest) {
             return try {
-                val resp = imdbService.searchTracks(dto.expression).execute()
+                val resp = itunesApi.searchTracks(dto.expression).execute()
                 resp.body()?.apply { resultCode = resp.code() }
                     ?: Response().apply { resultCode = resp.code() }
             } catch (e: IOException) {
