@@ -16,11 +16,10 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 class PlayerViewModel(
-    private val playerInteractor: PlayerInteractor
+    private val playerInteractor: PlayerInteractor, private val mediaPlayer: MediaPlayer
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData(PlayerState())
-    private val mediaPlayer = MediaPlayer()
     private var playerStatus = PlayerStatus.DEFAULT
     private var playWhenPrepared = false
     private var timerJob: Job? = null
