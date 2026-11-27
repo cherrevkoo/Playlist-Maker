@@ -130,6 +130,7 @@ class PlayerViewModel(
             country = track.country.orEmpty(),
             duration = track.trackTime?.let { dateFormat.format(it) }.orEmpty(),
             artworkUrl = track.artworkUrl100.orEmpty()
+                .replace("100x100bb.jpg", "512x512bb.jpg")
         )
     }
 

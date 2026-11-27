@@ -37,7 +37,8 @@ object Creator {
             context.getSharedPreferences(
                 "playlist_maker_search_history",
                 Context.MODE_PRIVATE
-            )
+            ),
+            Gson()
         )
     }
 

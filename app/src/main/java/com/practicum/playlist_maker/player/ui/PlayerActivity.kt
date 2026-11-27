@@ -19,6 +19,10 @@ import com.practicum.playlist_maker.search.ui.TrackParcelable
 
 class PlayerActivity : AppCompatActivity() {
 
+    companion object {
+        const val TRACK_KEY = "TRACK"
+    }
+
     private val viewModel: PlayerViewModel by viewModels {
         PlayerViewModelFactory(Creator.providePlayerInteractor(this))
     }
@@ -94,7 +98,7 @@ class PlayerActivity : AppCompatActivity() {
             }
         }
 
-        val track = intent.getParcelableExtra<TrackParcelable>("TRACK")
+        val track = intent.getParcelableExtra<TrackParcelable>(TRACK_KEY)
         viewModel.loadTrack(track)
     }
 
@@ -106,9 +110,8 @@ class PlayerActivity : AppCompatActivity() {
     private fun loadCover(artworkUrl: String) {
         val cornerRadiusInPx = (8 * resources.displayMetrics.density).toInt()
         if (artworkUrl.isNotEmpty()) {
-            val highResUrl = artworkUrl.replace("100x100bb.jpg", "512x512bb.jpg")
             Glide.with(this)
-                .load(highResUrl)
+                .load(artworkUrl)
                 .placeholder(R.drawable.placeholder)
                 .apply(RequestOptions().transform(RoundedCorners(cornerRadiusInPx)))
                 .into(trackCover)

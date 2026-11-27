@@ -9,9 +9,9 @@ import com.practicum.playlist_maker.search.data.toDto
 import com.practicum.playlist_maker.search.domain.api.SearchHistoryRepository
 import com.practicum.playlist_maker.search.domain.model.Track
 
-class SearchHistoryRepositoryImpl(private val sharedPreferences: SharedPreferences) :
+class SearchHistoryRepositoryImpl(private val sharedPreferences: SharedPreferences,
+    private val gson: Gson) :
     SearchHistoryRepository {
-    private val gson = Gson()
     private val key = "search_history"
 
     override fun getHistory(): List<Track> {
